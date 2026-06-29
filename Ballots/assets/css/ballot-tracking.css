@@ -1,0 +1,881 @@
+body {
+    font-family: "Myriad Pro", sans-serif;
+    margin:0;
+    background-color:#f2f2f2;
+}
+
+
+/*HEADER*/
+
+#header {
+    background:white;
+    padding:20px 30px;
+}
+
+#header img {
+    padding-right:20px;
+}
+
+#header form {
+    display:inline-block;
+    position: absolute;
+    right: 40px;
+    top: 24px;
+}
+
+#header form label {
+    color: rgb(65, 64, 66);
+    font-size: 15px;
+    padding-right: 5px;
+}
+
+#header form input {
+    margin-right:15px;
+    padding: 5px;
+}
+
+#header h1 {
+    display:inline-block;
+    margin:0;
+    position:absolute;
+    font-size:18px;
+    line-height: 30px;
+    font-weight: normal;
+}
+
+
+#user {
+    float: right;
+    display: inline-block;
+    padding: 10px;
+    font-size: 90%;
+    margin-right: 80px;
+}
+
+.username {
+    display:inline-block;
+    margin-right:20px;
+    color:#808285;
+}
+
+.username:before {
+    margin-right: 8px;
+    content: "\f007";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    color: #dadbdb;
+}
+
+/*STATS AREA*/
+
+#stats {
+    position:relative;
+    overflow:hidden;
+    margin:40px;
+    color:#808285;
+    font-size: 16px;
+    line-height: 19px;
+    display:flex;
+    flex-direction: row;
+}
+
+#stats #progressStats .current {
+    cursor: auto;
+    font-weight: 600;
+    color:rgb(65, 64, 66);
+}
+
+#progressPie {
+    flex-grow:1;
+}
+
+#stats p {
+    display: inline-block;
+    width:100px;
+    position: absolute;
+    top: 20px;
+    left: 110px;
+}
+
+svg {
+  width: 100px; height: 100px;
+  transform: rotate(-0deg);
+  background: #f2f2f2;
+  border-radius: 50%;
+}
+
+#progress p.progressbar-text{
+                color: #689A22;
+                font-size: 24px;
+                position: relative;
+                left: 30px;
+                top: -56px;
+                padding: 0;
+                margin: 0;
+}
+
+ul#progressStats {
+    padding:0;
+    list-style-type: none;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    flex-grow:2;
+}
+
+li.stat {
+    flex-grow:1;
+    min-width: 120px;
+    flex-basis:calc(100%/6);
+    display:inline-block;
+    position:relative;
+    height:58px;
+    border: 1px solid #d7d8da;
+    padding:8px;
+    margin-left:5px;
+    cursor: pointer;
+    display:flex;
+    flex-direction:row;
+}
+
+li.stat span.number {
+    padding-right:5px;
+    font-size:58px;
+    line-height: 62px;
+    font-weight: bold;
+    text-align: right;
+    color:#8cc53e;
+}
+
+li.stat span.step-name {
+    padding-top:10px;
+    padding-left:5px;
+}
+
+li.stat#upload-stat {
+    background-color: #fff;
+}
+
+li.stat#layout-stat, ul#stepTabs li#qp-tab {
+    background-color: #eff7e4;
+}
+
+li.stat#proofing-stat, ul#stepTabs li#ebc-tab {
+    background-color: #ddeec6;
+}
+
+li.stat#printing-stat, ul#stepTabs li#printer-tab {
+    background-color: #cbe5a8;
+}
+
+li.stat#signoff-stat, ul#stepTabs li#deo-tab {
+    background-color: #b9dc89;
+}
+
+li.stat#complete-stat {
+    color:#6d6e71;
+}
+
+li.stat#complete-stat, ul#stepTabs li#complete-tab {
+    background-color: #8cc53e;
+}
+
+li.stat#complete-stat span.number, li.stat#signoff-stat span.number {
+    color: #f8fbf3;
+}
+
+li.stat#printing-stat span.step-name, li.stat#complete-stat span.step-name, li.stat#signoff-stat span.step-name {
+    color: #414042;
+}
+
+/*MAIN CONTENT AREA*/
+
+#main, #deo_main {
+    margin:40px 2% 0 0;
+}
+
+
+/*Main - Tabs*/
+/*for tab background colours see stats area section above, as colors are defined for both at the same time to match*/
+
+
+#tabs {
+    width: 18%;
+    float: left;
+    margin: 0;
+    padding: 0;  
+    color: #414042;
+    text-align: right;
+}
+
+ul#stepTabs {
+    margin: 0 0 20 0;
+    padding: 0;
+    list-style-type:none;
+}
+
+ul#stepTabs li {
+    position: relative;
+    height: 30px;
+    padding:20px;
+/*
+    border-bottom: 1px solid #bcbec0;
+    border-right: 1px solid #bcbec0;   
+*/
+    font-size: 22px;
+    font-weight: 100;
+    background-color: white;
+    cursor:pointer;
+}
+
+
+ul#stepTabs li.current {
+    box-shadow: 2px 2px 5px #c6c7c8;
+    border-top: 1px solid #f2f2f2;
+    border-right:0;
+    font-weight: 600;
+    z-index:5;
+    cursor:auto;
+}
+
+ul#stepTabs li.current:before {
+    content:"\25BA";
+    font-size:80%;
+    float:left;
+}
+
+ul#stepTabs li:hover {
+    font-weight:400;
+}
+
+ul#stepTabs li.current:hover {
+    font-weight: 600;
+}
+
+ul#stepTabs a, ul#progressStats a, ul#stepTabs a:link, ul#progressStats a:link, ul#stepTabs a:visited, ul#progressStats a:visited, ul#stepTabs a:hover, ul#progressStats a:hover, ul#stepTabs a:active, ul#progressStats a:active {
+    text-decoration:none;
+    color:inherit;
+}
+
+li#all-tab {
+    border-bottom: 1px solid #d3d3d3;
+}
+
+
+/*Main-Table*/
+
+
+table {
+    position:relative;
+    z-index: 5;
+    float: left;
+    width: 82%;
+    background-color:#fff;
+    border-collapse: collapse;
+    font-size: 14px;
+    border-left: 1px solid #d7d8da;
+    border-right: 1px solid #d7d8da;
+    box-shadow: 2px 2px 5px #c6c7c8;
+/*  gradient border - need to remove border-collapse for this to work
+    border-top: 5px solid transparent;
+    border-image-source: linear-gradient(to right, #fff, #8dc63f);
+    border-image-slice: 1;
+*/
+}
+
+thead {
+    border-bottom: 1px solid #468ec8;
+    height:50px;
+}
+
+td, th {
+    border-right: 1px solid #d7d8da;
+    padding: 10px 6px;
+    text-align: center;
+
+}
+
+th {
+    background:#fff;
+    height:37px;
+    padding: 8px 6px 3px 6px;
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+}
+
+td {
+    border-bottom: 1px solid #d7d8da;
+    }
+
+tr:hover td {
+/*    background-color:rgba(252, 240, 241, 0.5);*/
+    background-color: #f5f9fd;
+} 
+
+
+tr:hover td.ed {
+    color:#468EC8;
+} 
+
+.subhead {
+    text-transform: capitalize;
+    letter-spacing: 0;
+    padding: 5px 5px 2px 5px;
+}
+
+.disabled {
+    color:#a7a9ac;
+}
+
+/*
+tr:nth-child(even) {
+    background: #fff;
+}
+
+tr:nth-child(odd) {
+    background: #f5f9fd;
+}
+*/
+
+table input {
+    padding: 5px;
+    width: 90px;
+}
+
+td.ED {
+    font-weight: bold;
+}
+
+
+table i {
+    padding:3px 10px;
+    color:#414042;
+}
+
+table i:hover {
+    color:#468EC8;
+}
+
+
+td a {
+display:block; /*    necessary to prevent button from splitting into two buttons when text breaks onto two lines on smaller screens*/
+}
+
+.qty-match-yes, .qty-match-no {
+    font-weight: bold;
+}
+
+.qty-match-yes {
+    color:#8CC53E;
+    }
+
+.qty-match-no {
+    color:red;
+}
+
+.qty-match-yes:after, .qty-match-no:after  {
+    padding-left:5px;
+    font-weight: normal;
+}
+
+.qty-match-yes:after {
+    content:"\2714";
+}
+
+.qty-match-no:after {
+    content:"\2716";
+}
+
+.qty-match-yes:hover, .qty-match-no:hover {
+    color:#468EC8;
+}
+
+/*BUTTONS*/
+
+/* basic style for all buttons */
+.btn, .uploadifive-button, .upload_button  {
+    padding: 5px 5px 3px 5px;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #468ec8;
+    border: 1px solid #468ec8;
+    cursor:pointer;
+}
+
+.disabled_button {
+  margin-top: 5px;
+  background-color: #ffffff;
+  color: grey;
+  border: 1px solid #468ec8;
+  padding: 4px 8px;
+  border-radius: 115px;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.disabled_link {
+  pointer-events: none;
+  cursor: not-allowed;
+  color: grey;
+}
+
+/*copied with slight modifications from uploadifive-button class so we can display a disabled SELECT FILES button on the "All" tab*/
+.disabled_select_files {
+  height: 26px;
+  width: 110px;
+  background-color: #505050;
+  background-image: linear-gradient(bottom, #505050 0%, #707070 100%);
+  background-image: -o-linear-gradient(bottom, #505050 0%, #707070 100%);
+  background-image: -moz-linear-gradient(bottom, #505050 0%, #707070 100%);
+  background-image: -webkit-linear-gradient(bottom, #505050 0%, #707070 100%);
+  background-image: -ms-linear-gradient(bottom, #505050 0%, #707070 100%);
+  background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, #505050), color-stop(1, #707070) );
+  background-position: center top;
+  background-repeat: no-repeat;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  border: 2px solid #808080;
+  color: #FFF;
+  font: bold 12px Arial, Helvetica, sans-serif;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  text-transform: uppercase;
+  cursor: not-allowed;
+}
+
+/*on hover background color lightens and blue text and border darkens*/
+a.btn:hover,  .uploadifive-button:hover {
+    background-color:#fff;
+    color:#004a8d;
+    border-color: #004a8d;
+}
+
+/* buttons grey when visited */
+.visited {
+    color:#aaa;
+    border:1px solid #aaa;
+    background-color:#f2f2f2;
+}
+
+
+/* submit button styling*/
+.btn-submit {
+    padding: 8px 8px 6px 8px;
+    background-color: #ddeaf5;
+    border-radius: 0;
+}
+
+.btn-submit:hover {
+    color:#fff;
+    background-color: #468ec8;
+}
+
+
+/* login button styling */
+#header .btn.btn-login, .btn.btn-login:visited {
+  background-color: #8cc53e;
+  color: #fff;
+  padding: 7px 25px;
+  border-radius: 115px;
+  border: 0;
+}
+
+.btn.btn-login:hover {
+    background-color: #9ece5c;
+    color:#fff;
+    border:0;
+}
+
+/* logout button styling*/
+#header .logout {
+  background-color: #000000;
+  color: #b9dc89;
+  border: 1px solid #b9dc89;
+  padding: 5px 10px;
+  border-radius: 115px;
+  cursor: pointer;
+}
+
+#header .logout:hover {
+    color: #8cc53e;
+    border: 1px solid #8cc53e;
+}
+
+/* audio proof upload button styling*/
+.audioProofUpload {
+  background-color: #000000;
+  color: #b9dc89;
+  border: 2px solid #b9dc89;
+  padding: 6px 10px;
+  border-radius: 115px;
+  font-weight: bold;
+  font-size: medium;
+  cursor: pointer;
+}
+
+  .audioProofUpload:hover {
+    color: #8cc53e;
+    border: 2px solid #8cc53e;
+  }
+
+
+/* dashboard row button styling*/
+.btnDashboard {
+  background-color: #ffffff;
+  color: #468ec8;
+  border: 2px solid #468ec8;
+  padding: 5px 10px;
+  border-radius: 115px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btnDashboard:hover {
+  color: #8cc53e;
+  border: 2px solid #8cc53e;
+}
+
+.btnDashboardDisabled {
+  background-color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 115px;
+  color: grey;
+  border: 1px solid #468ec8;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* upload button styles - important to overwrite uploadifive inline styles */
+.uploadifive-button {
+    height: 15px !important;
+    width: 100px !important;
+    font-family: "Myriad Pro", sans-serif;
+    line-height: normal !important;
+    margin-left: auto;
+    margin-right: auto;
+    color:#fff;
+    background-color: #64a0d1;
+}
+
+.upload_button {
+  margin-top: 5px;
+  background-color: #ffffff;
+  color: #468ec8;
+  border: 2px solid #468ec8;
+  padding: 4px 8px;
+  border-radius: 115px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.upload_button:hover {
+  color: #8cc53e;
+  border: 2px solid #8cc53e;
+}
+
+input.quantity {
+    margin-bottom: 5px;
+}
+
+
+
+/*PROOF DIALOG*/
+
+#proof-dialog img {
+/*    max-width: 800px;*/
+}
+
+.ui-dialog-titlebar-close:after { 
+    position: absolute;
+    top: -2px;
+    left: 3px;
+    content: 'X'; 
+    font-weight:bold;
+} 
+
+textarea#proof-textbox {
+    padding:20px;
+    line-height: 24px;
+    font-family:  "Myriad Pro", sans-serif;
+}
+
+
+/*TOOLTIPS*/
+
+.ui-tooltip {
+    
+}
+
+.ui-tooltip-content {
+    font-size:14px;
+}
+
+/*LOGIN FORM*/
+
+#login {
+    display:inline-block;
+    float:right;
+}
+
+#login label {
+    color:#6d6e71;
+}
+
+#login input {
+    height:30px;
+    margin:0 15px 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+
+/* PROOF DIALOG */
+
+.ui-widget-overlay {
+    opacity: .4;
+}
+
+.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle {
+    background-color: #004a8d;
+    color:#fff;
+}
+
+/*SINGLE ED VIEW STYLES*/
+
+
+#deo_main.single-ed {
+  margin: 40px 5% 30px 5%;
+}
+
+  #deo_main.single-ed table {
+    width: 100%;
+    float: none;
+    border-top: 1px solid #8cc53e;
+    border-bottom: 2px solid #8cc53e;
+  }
+
+.ed-name {
+    color: rgb(65, 64, 66);
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.ed-name:before {
+    content: "\25BA";
+    font-size: 85%;
+    padding-right:10px;
+
+}
+/* removed stats
+
+.ed-stats {
+
+}
+
+.ed-stats i {
+    padding-right:15px;
+    padding-left:40px;
+    font-size: 48px;
+    color: #8cc53e;
+}
+*/
+
+/*
+.ed-stats i:first-of-type {
+    padding-left:0px;
+}
+*/
+
+.legal-text {
+    text-align:right;
+    margin: 32px 0;
+}
+
+.contact {
+    margin-right: 5%;
+    margin-top: 64px;
+    color: #606060;
+    text-align: right;
+}
+
+.contact:before {
+    content:"\f059";
+    font: normal normal normal 14px/1 FontAwesome;
+    color:#468ec8;
+    padding-right: 5px;
+}
+
+.contact strong {
+    font-weight: normal;
+    color: #468ec8;
+}
+
+.contact a, .contact a:visited {
+    color: inherit;
+}
+
+.contact a:hover {
+    color:#468ec8;
+}
+
+
+/* removed progress bar
+
+#ed-progress-bar {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    margin-bottom:40px;
+    background-color: #fff;
+    border: 1px solid #808285;
+
+}
+
+#current-progress {
+    background-color:#8CC53E;
+    height:25px;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index: 0;
+}
+
+.ninety {
+    width: 90%;
+    z-index: 5;
+}
+*/
+
+
+/*MEDIA QUERIES - a few small adjustments to make table work on smaller laptop screens*/
+
+@media (min-width: 1301px) and (max-width: 1550px) {
+    ul#steptabs li {
+        font-size: 18px;
+        line-height: 20px;
+        height:22px;
+    }
+    
+    th {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 996px) and (max-width: 1300px) {
+    
+    #header img {
+        max-width: 200px;
+    }
+    
+    #header h1 {
+        font-size: 18px;
+    }
+    
+    #header form {
+    top: 20px;
+}
+    
+    #user {
+        padding-top:5px;
+    }
+    
+    ul#steptabs li {
+        font-size: 16px;
+        line-height: 18px;
+        height:20px;
+    }
+    
+    table btn.btn-submit {
+        display:block;
+        margin-top:5px;
+    }
+    
+    th {
+        font-size:12px;
+    }
+}
+
+@media (max-width: 995px) {
+    
+    #header img {
+        max-width: 175px;
+    }
+    
+    #header h1 {
+        font-size: 16px;
+    }
+    
+    
+    #stats {
+        margin: 20px;
+    }
+
+    #main, #tracking-table, #deo_main {
+      padding-left: 20px;
+    }
+    
+    #deo_main.single-ed, .single-ed #tracking-table {
+        padding-left:0;
+    }
+    
+    ul#progressStats {
+      flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    
+    ul#progressStats li {
+        max-width: 150px;
+        margin-bottom: 5px;
+    }
+    
+    #tabs {
+        width: auto;
+        position: relative;
+        height:38px;
+    }
+    
+    ul#steptabs {
+        margin-bottom:0;
+    }
+    
+    ul#steptabs li {
+        display:inline-block;
+        padding: 10px 15px;
+        font-size:16px;
+    }
+    
+    #main #tabs ul#steptabs li.current {
+        background-color:#fff;
+        font-weight:normal;
+    }
+    
+    ul#stepTabs li.current:before {
+    padding-right: 5px;
+    }
+    
+     #main #tabs ul#steptabs li:hover {
+        background-color:#fff;
+    }
+    
+    
+   #tabs ul#steptabs li#upload-tab,  #tabs ul#steptabs li#qp-tab, #tabs ul#steptabs li#ebc-tab, #tabs ul#steptabs li#printer-tab, #tabs ul#steptabs li#deo-tab, #tabs ul#steptabs li#complete-tab, #tabs ul#steptabs li#all-tab, ul#steptabs li.current {
+        height:auto;
+        border: 1px solid #d7d8da;
+        box-shadow:none;
+        background-color: #f2f2f2;
+    }
+    
+    table {
+        border-top:
+    }
+    
+    th {
+        font-size:12px;
+    }
+    
+}

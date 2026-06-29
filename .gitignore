@@ -1,0 +1,11 @@
+Ballots/obj/
+BallotsUtil/bin/
+BallotsUtil/obj/
+packages/
+Ballots/bin/
+Ballots/Web.config
+Ballots/Web.Debug.config
+Ballots/Web.Release.config
+.vs/
+Ballots/Dummy.Debug.config
+Ballots/Dummy.Release.config

@@ -1,0 +1,14 @@
+            .progress {
+                height: 100px;
+		width: 100px;
+	margin-right:25px;
+
+
+
+            }
+
+            .progress > svg {
+                height: 100%;
+                display: block;
+
+            }
