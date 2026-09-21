@@ -37,6 +37,7 @@ namespace Ballots
     {
       BallotFileUploadControl.Attributes["onchange"] = "uploadBallotFiles(this)";
       MailInBallotFileUploadControl.Attributes["onchange"] = "uploadMailInBallotFiles(this)";
+      ExtractFileUploadControl.Attributes["onchange"] = "uploadExtractFiles(this)";
       if (this.Session["authUserName"] == null)
       {
         this.Response.Redirect("Login.aspx");
@@ -786,6 +787,10 @@ namespace Ballots
           {
             BallotTracker.setDatabaseRecords("UPDATE ED_Ballot_Track SET mailBallotUploadDT=GETDATE(), mailBallotUploadUser = '" + user + "', mailBallotPath = '" + path + "', mailBallotRejectDT=NULL, mailBallotRejectUser=NULL WHERE ed='" + id + "' AND archive <> 1");
           }
+          else if (uploadType == "extract_master")
+          {
+            BallotTracker.setDatabaseRecords("UPDATE ED_Ballot_Track SET xlsUpDT=GETDATE(), xlsUpUser = '" + user + "', xlsPath = '" + path + "' WHERE xlsPath IS NULL AND archive <> 1");
+          }
           else
           {
             BallotTracker.setDatabaseRecords("UPDATE ED_Ballot_Track SET xlsUpDT=GETDATE(), xlsUpUser = '" + user + "', xlsPath = '" + path + "' WHERE ed='" + id + "' AND archive <> 1");
@@ -949,7 +954,10 @@ namespace Ballots
     private void BulkUploadHttpPostedFiles(string uploadType)
     {
       FileUpload fileUploadControl = null;
-      if (uploadType == "mail")
+      if (uploadType == "extract_master")
+      {
+        fileUploadControl = ExtractFileUploadControl;
+      } else if (uploadType == "mail")
       {
         fileUploadControl = MailInBallotFileUploadControl;
       }
@@ -972,7 +980,12 @@ namespace Ballots
             string ed = "";
             string fileName = "";
             string uploadFolder = "";
-            if (uploadType == "mail")
+            if (uploadType == "extract_master")
+            {
+              //ed = postfile.FileName.Replace("_Mail.pdf", "");
+              uploadFolder = System.Configuration.ConfigurationManager.AppSettings["BallotExtractFolder"];
+              fileName = postfile.FileName;
+            } else if (uploadType == "mail")
             {
               ed = postfile.FileName.Replace("_Mail.pdf", "");
               uploadFolder = System.Configuration.ConfigurationManager.AppSettings["MailBallotFolder"];
@@ -1051,14 +1064,21 @@ namespace Ballots
 
     private bool AllowUpload(string ed, string uploadType)
     {
-      //when bulk uploading ballot proof files, need to only allow uploading files for electoral districts which are in the "With DVS" tab
-      string sql = "SELECT ebt.ed FROM ED_Ballot_Track ebt WHERE ebt.archive <> 1 AND ebt.xlsPath IS NOT NULL AND (ebt.proofPath IS NULL OR ebt.ballotRejectDT IS NOT NULL) AND ebt.ed = '" + ed + "'";
-      if (uploadType == "mail")
+      bool allowupload = false;
+      if (uploadType == "extract_master")
       {
-        sql = "SELECT ebt.ed FROM ED_Ballot_Track ebt WHERE ebt.archive <> 1 AND ebt.xlsPath IS NOT NULL AND (ebt.mailBallotPath IS NULL OR ebt.mailBallotRejectDT IS NOT NULL) AND ebt.ed = '" + ed + "'";
+        allowupload = true;
+      } else { 
+        //when bulk uploading ballot proof files, need to only allow uploading files for electoral districts which are in the "With Neuvote" tab
+        string sql = "SELECT ebt.ed FROM ED_Ballot_Track ebt WHERE ebt.archive <> 1 AND ebt.xlsPath IS NOT NULL AND (ebt.proofPath IS NULL OR ebt.ballotRejectDT IS NOT NULL) AND ebt.ed = '" + ed + "'";
+        if (uploadType == "mail")
+        {
+          sql = "SELECT ebt.ed FROM ED_Ballot_Track ebt WHERE ebt.archive <> 1 AND ebt.xlsPath IS NOT NULL AND (ebt.mailBallotPath IS NULL OR ebt.mailBallotRejectDT IS NOT NULL) AND ebt.ed = '" + ed + "'";
+        }
+        DataTable databaseRecords = BallotTracker.getDatabaseRecords(sql);
+        allowupload = databaseRecords.Rows.Count > 0;
       }
-      DataTable databaseRecords = BallotTracker.getDatabaseRecords(sql);
-      return databaseRecords.Rows.Count > 0;
+      return allowupload;
     }
 
     private string GetRegion(string ed)
@@ -1072,6 +1092,11 @@ namespace Ballots
     protected void MailInBallotUploadToServer_Click(object sender, EventArgs e)
     {
       BulkUploadHttpPostedFiles("mail");
+    }
+
+    protected void ExtractUploadToServer_Click(object sender, EventArgs e)
+    {
+      BulkUploadHttpPostedFiles("extract_master");
     }
   }
 }

@@ -64,6 +64,20 @@
             }
         }
 
+        function triggerExtractFileUpload() {
+            // Get the client ID of the ASP.NET control
+            var fileUpload = document.getElementById('<%= ExtractFileUploadControl.ClientID %>');
+            if (fileUpload) {
+                fileUpload.click();
+            }
+        }
+
+        function uploadExtractFiles(fileUpload) {
+            if (fileUpload.value != '') {
+                document.getElementById("<%=ExtractUploadToServer.ClientID %>").click();
+            }
+        }
+
         window.addEventListener("beforeunload", function (event) {
             document.getElementById('proof-iframe').src = "FileHandler.ashx?fileAction=delete&userid=" + document.getElementById("userid").value;
         });
@@ -86,6 +100,10 @@
         </div>
         <br />
         <br />
+         <asp:FileUpload ID="ExtractFileUploadControl" runat="server" AllowMultiple="false" style="display:none;"   />
+         <asp:Button ID="ExtractCustomUpload" runat="server" class="audioProofUpload" Text="Upload Master Extract" OnClientClick="triggerExtractFileUpload(); return false;" />
+         <asp:Button ID="ExtractUploadToServer" runat="server" style="display:none;" OnClick="ExtractUploadToServer_Click" />
+         &#160;&#160;
         <asp:FileUpload ID="BallotFileUploadControl" runat="server" AllowMultiple="true" style="display:none;"   />
         <asp:Button ID="btnCustomUpload" runat="server" class="audioProofUpload" Text="Batch Upload Ballot Proofs" OnClientClick="triggerFileUpload(); return false;" />
         <asp:Button ID="btnUploadToServer" runat="server" style="display:none;" OnClick="btnUploadToServer_Click" />
@@ -114,7 +132,7 @@
         <div id="tabs">
           <ul id="stepTabs">
             <li id="upload-tab">Waiting for <br />Extract Upload</li>
-            <li id="qp-tab">With DVS</li>
+            <li id="qp-tab">With Neuvote</li>
             <li id="ebc-tab">EBC Proofing</li>
             <li id="printer-tab">Approved Ballot Files</li>
             <li id="all-tab">Overview</li>

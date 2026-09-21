@@ -95,7 +95,7 @@ namespace Ballots
               session.Open(sessionOptions);
               Stream inputStream = postedFile.InputStream;
 
-              string filename = ed + ConfigurationManager.AppSettings["BallotFileName"];
+              string filename = postedFile.FileName;
 
               if (uploadType == "proof")
               {

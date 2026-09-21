@@ -42,6 +42,33 @@ namespace Ballots
     protected global::System.Web.UI.WebControls.HiddenField userType;
 
     /// <summary>
+    /// ExtractFileUploadControl control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.FileUpload ExtractFileUploadControl;
+
+    /// <summary>
+    /// ExtractCustomUpload control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button ExtractCustomUpload;
+
+    /// <summary>
+    /// ExtractUploadToServer control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button ExtractUploadToServer;
+
+    /// <summary>
     /// BallotFileUploadControl control.
     /// </summary>
     /// <remarks>
