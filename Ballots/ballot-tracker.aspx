@@ -137,7 +137,6 @@
             <li id="printer-tab">Approved Ballot Files</li>
             <li id="all-tab">Overview</li>
           </ul>
-          <asp:Button ID="AudioProofUpload" runat="server" class="audioProofUpload" Text="Upload Audio Files" OnClientClick="Javascript:window.open('https://drive.kp.gov.bc.ca/WebInterface/login.html', 'blank');"></asp:Button>
         </div>
       </div>
     </asp:Panel>
