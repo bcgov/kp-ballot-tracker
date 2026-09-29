@@ -100,17 +100,19 @@
         </div>
         <br />
         <br />
-         <asp:FileUpload ID="ExtractFileUploadControl" runat="server" AllowMultiple="false" style="display:none;"   />
-         <asp:Button ID="ExtractCustomUpload" runat="server" class="audioProofUpload" Text="Upload Master Extract" OnClientClick="triggerExtractFileUpload(); return false;" />
-         <asp:Button ID="ExtractUploadToServer" runat="server" style="display:none;" OnClick="ExtractUploadToServer_Click" />
-         &#160;&#160;
-        <asp:FileUpload ID="BallotFileUploadControl" runat="server" AllowMultiple="true" style="display:none;"   />
-        <asp:Button ID="btnCustomUpload" runat="server" class="audioProofUpload" Text="Batch Upload Ballot Proofs" OnClientClick="triggerFileUpload(); return false;" />
-        <asp:Button ID="btnUploadToServer" runat="server" style="display:none;" OnClick="btnUploadToServer_Click" />
-        &#160;&#160;
-        <asp:FileUpload ID="MailInBallotFileUploadControl" runat="server" AllowMultiple="true" style="display:none;"   />
-        <asp:Button ID="MailInBallotCustomUpload" runat="server" class="audioProofUpload" Text="Batch Upload Mail-In Ballots" OnClientClick="triggerMailInBallotFileUpload(); return false;" />
-        <asp:Button ID="MailInBallotUploadToServer" runat="server" style="display:none;" OnClick="MailInBallotUploadToServer_Click" />
+         <asp:Panel runat="server" ID="BatchUploadPanel">
+             <asp:FileUpload ID="ExtractFileUploadControl" runat="server" AllowMultiple="false" style="display:none;"   />
+             <asp:Button ID="ExtractCustomUpload" runat="server" class="audioProofUpload" Text="Upload Master Extract" OnClientClick="triggerExtractFileUpload(); return false;" />
+             <asp:Button ID="ExtractUploadToServer" runat="server" style="display:none;" OnClick="ExtractUploadToServer_Click" />
+             &#160;&#160;
+            <asp:FileUpload ID="BallotFileUploadControl" runat="server" AllowMultiple="true" style="display:none;"   />
+            <asp:Button ID="btnCustomUpload" runat="server" class="audioProofUpload" Text="Batch Upload Ballot Proofs" OnClientClick="triggerFileUpload(); return false;" />
+            <asp:Button ID="btnUploadToServer" runat="server" style="display:none;" OnClick="btnUploadToServer_Click" />
+            &#160;&#160;
+            <asp:FileUpload ID="MailInBallotFileUploadControl" runat="server" AllowMultiple="true" style="display:none;"   />
+            <asp:Button ID="MailInBallotCustomUpload" runat="server" class="audioProofUpload" Text="Batch Upload Mail-In Ballots" OnClientClick="triggerMailInBallotFileUpload(); return false;" />
+            <asp:Button ID="MailInBallotUploadToServer" runat="server" style="display:none;" OnClick="MailInBallotUploadToServer_Click" />
+        </asp:Panel>
     </div>
     <div id="button_header">
       <div id="buttons">

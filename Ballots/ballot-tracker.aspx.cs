@@ -53,6 +53,7 @@ namespace Ballots
 
       if (GetUserType() == "DEO")
       {
+        BatchUploadPanel.Visible = false;
         StatsAndTabsPanel.Visible = false;
         DeoViewPanel.Visible = true;
 
@@ -64,17 +65,21 @@ namespace Ballots
       }
       else if (GetUserType() == "RFO")
       {
+        BatchUploadPanel.Visible = false;
         StatsAndTabsPanel.Visible = false;
         DeoViewPanel.Visible = false;
         this.getBallotsTable(5);
       }
       else
       {
+        BatchUploadPanel.Visible = true;
         StatsAndTabsPanel.Visible = true;
         DeoViewPanel.Visible = false;
 
         if (GetUserType() == "DVS")
         {
+          BatchUploadPanel.Visible = true;
+          ExtractCustomUpload.Visible = false;
           StatsAndTabsPanel.Visible = false;
           this.getBallotsTable(7);
         }
