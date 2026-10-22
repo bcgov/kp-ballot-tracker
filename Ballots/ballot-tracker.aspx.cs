@@ -318,15 +318,11 @@ namespace Ballots
 
         if (ShowColumn("MAIL_BALLOT_PROOFS"))
         {
-          if (tabID == 2)
-          {
-            stringBuilder.Append("<td></td>");
-          } 
-          else if (row["mailBallotPath"] != DBNull.Value)
+          if (row["mailBallotPath"] != DBNull.Value)
           {
             if (row["mailBallotApproveDT"] != DBNull.Value)
             {
-              if (tabID == 7)
+              if (tabID == 7 || tabID == 2)
               {
                 stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" value=\"View Mail-in Ballot\"/><br>");
               }
@@ -343,7 +339,7 @@ namespace Ballots
             }
             else if (row["mailBallotRejectDT"] != DBNull.Value)
             {
-              if (tabID == 7)
+              if (tabID == 7 || tabID == 2)
               {
                 stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View Mail-in Ballot\"/><br>");
               }
@@ -360,7 +356,7 @@ namespace Ballots
             }
             else
             {
-              if (tabID == 7)
+              if (tabID == 7 || tabID == 2)
               {
                 stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" value=\"View Mail-in Ballot\"/><br>");
               }
