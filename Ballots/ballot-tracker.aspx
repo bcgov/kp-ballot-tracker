@@ -114,14 +114,7 @@
             <asp:Button ID="MailInBallotUploadToServer" runat="server" style="display:none;" OnClick="MailInBallotUploadToServer_Click" />
         </asp:Panel>
     </div>
-    <div id="button_header">
-      <div id="buttons">
-          <br />
-          &#160;&#160;&#160;&#160;
-  
-            
-      </div>
-    </div>
+
     <asp:Panel runat="server" ID="StatsAndTabsPanel">
       <div id="stats">
         <div class="progress" id="progress">
@@ -164,21 +157,33 @@
     </div>
     <!--   END tracking-table -->
 
-    <div id="proof-dialog" title="Ballot Proof">
-      <iframe id="proof-iframe" width="1280px" height="700px" scrolling="no" frameborder="0"></iframe>
-      <input type="hidden" id="currED" value="" />
-    </div>
+   <dialog id="proofDialog">
+        <iframe id="proof-iframe" width="1280px" height="700px" scrolling="no" frameborder="0"></iframe>
+        <form method="dialog">
+            <input type="hidden" id="currED" value="" />
+            <button id="approveBtnBallotProof" class="audioProofUpload" value="approve">Approve Ballot Proof</button>
+            <button id="rejectBtnBallotProof" class="audioProofUpload" value="reject">Ballot Proof Not Approved</button>
+            <button id="closeBtnBallotProof" class="audioProofUpload" value="close">Close</button>
+        </form>
+    </dialog>
 
-    <div id="mail-ballot-dialog" title="Mail-in Ballot">
-      <iframe id="mail-ballot-iframe" width="1280px" height="700px" scrolling="no" frameborder="0"></iframe>
-      <input type="hidden" id="mailBallotED" value="" />
-    </div>
+    <dialog id="mailBallotDialog">
+        <iframe id="mail-ballot-iframe" width="1280px" height="700px" scrolling="no" frameborder="0"></iframe>
+        <form method="dialog">
+            <input type="hidden" id="mailBallotED" value="" />
+            <button id="approveBtnMailBallot" class="audioProofUpload" value="approve">Approve Mail-In Ballot</button>
+            <button id="rejectBtnMailBallot" class="audioProofUpload" value="reject">Mail-In Ballot Not Approved</button>
+            <button id="closeBtnMailBallot" class="audioProofUpload" value="close">Close</button>
+        </form>
+    </dialog>
 
-    <div id="ballot-dialog" title="Approved Ballot">
-      <iframe id="ballot-iframe" width="1280px" height="700px" scrolling="no" frameborder="0"></iframe>
-      <input type="hidden" id="viewBallotED" value="" />
-    </div>
+    <dialog id="viewBallotDialog">
+        <iframe id="view-ballot-iframe" width="1280px" height="700px" scrolling="no" frameborder="0"></iframe>
+        <form method="dialog">
+            <input type="hidden" id="viewBallotED" value="" />
+            <button id="closeBtnViewBallot" class="audioProofUpload" value="close">Close</button>
+        </form>
+    </dialog>
   </form>
 </body>
-
 </html>

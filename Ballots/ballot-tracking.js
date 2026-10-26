@@ -95,7 +95,6 @@ $(function() {
     });
 });
 
-
 $(function() {
 // show QP table view
      $("#qp-tab, #layout-stat").click(function( event ) {
@@ -133,131 +132,60 @@ $(function() {
 });
 
 $(function() {
-// open dialog when View Proof button is clicked
-$( "#proof-dialog" ).dialog({
-    autoOpen: false,
-    modal: true,
-    height: 800,
-    width: 1400,
-    scrollTop: 0,
-    buttons: {
-        "Approve proof": function() {
-            $(this).dialog("close");
-            currED = document.getElementById('currED').value
-            console.log("ED: " + currED)
-            var userid = document.getElementById("userid").value;
-            approveProof(currED, userid);
-        },
-        "Proof not approved": function() {
-            $(this).dialog("close");
-            currED = document.getElementById('currED').value
-            console.log("ED: " + currED)
-            var userid = document.getElementById("userid").value;
-            rejectProof(currED, userid);
-        }
-    },
-    close: function (event, ui) {
-        //clear the source so the previously viewed ballot doesn't appear initially when viewing a ballot proof after closing the previous ballot proof with the X close button
-        //if file is copied locally to be viewed then need to delete it when the window is closed
-        document.getElementById('proof-iframe').src = "FileHandler.ashx?fileAction=delete&userid=" + document.getElementById("userid").value;
-    }
-});
-
-$(".btn-proof").click(function (value) {
+  $(".btn-proof").click(function (value) {
     event.preventDefault();
-
+    proofDialog.showModal();
     document.getElementById('currED').value = value.target.name.substring(0, 3);
-
-    document.getElementById('proof-dialog').scrollTop = 0;
-
     document.getElementById('proof-iframe').src = "FileHandler.ashx?uploadType=view&ed=" + value.target.name.substring(0, 3) + "&region=" + value.target.id.replace(value.target.name.substring(0, 3) + '-ballot-proof-', "") + "&userid=" + document.getElementById("userid").value;
+  });
 
-    $("#proof-dialog").dialog("open");
-    $("#proof-dialog").dialog("option", "width", 1280);
-    $("#proof-dialog").dialog("option", "height", 700);
-    $("#proof-dialog").dialog("option", "title", "Ballot Proof");
+  document.getElementById('approveBtnBallotProof').addEventListener('click', function (value) {
+    approveProof(document.getElementById('currED').value, document.getElementById("userid").value);
+  });
 
+  document.getElementById('rejectBtnBallotProof').addEventListener('click', function (value) {
+    rejectProof(document.getElementById('currED').value, document.getElementById("userid").value);
+  });
+
+  document.getElementById('closeBtnBallotProof').addEventListener('click', function (value) {
+    document.getElementById('proof-iframe').src = "FileHandler.ashx?fileAction=delete&userid=" + document.getElementById("userid").value;
+    proofDialog.close();
   });
 });
 
 $(function () {
-  // open dialog when View Proof button is clicked
-  $("#mail-ballot-dialog").dialog({
-    autoOpen: false,
-    modal: true,
-    height: 800,
-    width: 1400,
-    scrollTop: 0,
-    buttons: {
-      "Approve mail-in ballot": function () {
-        $(this).dialog("close");
-        currED = document.getElementById('mailBallotED').value
-        console.log("ED: " + currED)
-        var userid = document.getElementById("userid").value;
-        approveMailBallot(currED, userid);
-      },
-      "Mail-in ballot not approved": function () {
-        $(this).dialog("close");
-        currED = document.getElementById('mailBallotED').value
-        console.log("ED: " + currED)
-        var userid = document.getElementById("userid").value;
-        rejectMailBallot(currED, userid);
-      }
-    },
-      close: function (event, ui) {
-        //clear the source so the previously viewed ballot doesn't appear initially when viewing a ballot proof after closing the previous ballot proof with the X close button
-        //if file is copied locally to be viewed then need to delete it when the window is closed
-        document.getElementById('mail-ballot-iframe').src = "FileHandler.ashx?fileAction=delete&userid=" + document.getElementById("userid").value;
-    }
-  });
-
   $(".btn-mail-ballot").click(function (value) {
     event.preventDefault();
- 
+    mailBallotDialog.showModal();
     document.getElementById('mailBallotED').value = value.target.name.substring(0, 3);
-
-    document.getElementById('mail-ballot-dialog').scrollTop = 0;
-
     document.getElementById('mail-ballot-iframe').src = "FileHandler.ashx?uploadType=view_mail&ed=" + value.target.name.substring(0, 3) + "&userid=" + document.getElementById("userid").value;
+  });
 
-    $("#mail-ballot-dialog").dialog("open");
-    $("#mail-ballot-dialog").dialog("option", "width", 1280);
-    $("#mail-ballot-dialog").dialog("option", "height", 700);
-    $("#mail-ballot-dialog").dialog("option", "title", "Mail-In Ballot");
+  document.getElementById('approveBtnMailBallot').addEventListener('click', function (value) {
+    approveMailBallot(document.getElementById('mailBallotED').value, document.getElementById("userid").value);
+  });
 
+  document.getElementById('rejectBtnMailBallot').addEventListener('click', function (value) {
+    rejectMailBallot(document.getElementById('mailBallotED').value, document.getElementById("userid").value);
+  });
+
+  document.getElementById('closeBtnMailBallot').addEventListener('click', function (value) {
+    document.getElementById('mail-ballot-iframe').src = "FileHandler.ashx?fileAction=delete&userid=" + document.getElementById("userid").value;
+    mailBallotDialog.close();
   });
 });
 
 $(function () {
-  // open dialog when View Ballot button is clicked
-  $("#ballot-dialog").dialog({
-    autoOpen: false,
-    modal: true,
-    height: 800,
-    width: 1400,
-    scrollTop: 0,
-    buttons: {
-      "Close": function () {
-        $(this).dialog("close");
-      }
-    }
-  });
-
   $(".btn-ballot").click(function (value) {
     event.preventDefault();
-
+    viewBallotDialog.showModal();
     document.getElementById('viewBallotED').value = value.target.name.substring(0, 3);
+    document.getElementById('view-ballot-iframe').src = "FileHandler.ashx?uploadType=view&ed=" + value.target.name.substring(0, 3) + "&region=" + value.target.id.replace(value.target.name.substring(0, 3) + '-ballot-approved-', "") + "&userid=" + document.getElementById("userid").value;
+  });
 
-    document.getElementById('ballot-dialog').scrollTop = 0;
-
-    document.getElementById('ballot-iframe').src = "FileHandler.ashx?uploadType=view&ed=" + value.target.name.substring(0, 3) + "&region=" + value.target.id.replace(value.target.name.substring(0, 3) + '-ballot-approved-', "") + "&userid=" + document.getElementById("userid").value;
-
-    $("#ballot-dialog").dialog("open");
-
-    $("#ballot-dialog").dialog("option", "width", 1280);
-    $("#ballot-dialog").dialog("option", "height", 700);
-    $("#ballot-dialog").dialog("option", "title", "Approved Ballot");
-
+  document.getElementById('closeBtnViewBallot').addEventListener('click', function (value) {
+    document.getElementById('view-ballot-iframe').src = "FileHandler.ashx?fileAction=delete&userid=" + document.getElementById("userid").value;
+    viewBallotDialog.close();
   });
 });
 
@@ -385,8 +313,6 @@ function approveHardCopy(ed) {
   });
 };
 
-
-
 function refreshPage() {
   document.getElementById("ballotsForm").submit();
 }
@@ -408,5 +334,3 @@ function reUploadExtract(ed) {
     });
   }
 }
-
-
