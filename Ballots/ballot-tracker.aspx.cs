@@ -795,6 +795,10 @@ namespace Ballots
           else
           {
             BallotTracker.setDatabaseRecords("UPDATE ED_Ballot_Track SET xlsUpDT=GETDATE(), xlsUpUser = '" + user + "', xlsPath = '" + path + "' WHERE ed='" + id + "' AND archive <> 1");
+            if (uploadType == "extract" && ConfigurationManager.AppSettings["SendMasterExtractUploadedEmail"].ToString().ToLower() == "true")
+            {
+              SendEmail(id, user, "master_extract_uploaded");
+            }
           }
         }
         catch
@@ -826,6 +830,9 @@ namespace Ballots
         case "mail_ballot_rejected":
           mailDefinition.BodyFileName = "mail-template-mail-in-rejected.html";
           break;
+        case "master_extract_uploaded":
+          mailDefinition.BodyFileName = "mail-template-extract-uploaded.html";
+          break;
         default:
           mailDefinition.BodyFileName = "mail-template.html";
           break;
@@ -834,8 +841,11 @@ namespace Ballots
       mailDefinition.From = ConfigurationManager.AppSettings["emailFrom"];
       ListDictionary replacements = new ListDictionary();
       DateTime today = DateTime.Today;
-      replacements.Add((object)"<%ed-name%>", (object)databaseRecords2.Rows[0]["edName"]);
-      replacements.Add((object)"<%ed-code%>", (object)databaseRecords2.Rows[0]["ed"]);
+      if (emailType != "master_extract_uploaded")
+      {
+        replacements.Add((object)"<%ed-name%>", (object)databaseRecords2.Rows[0]["edName"]);
+        replacements.Add((object)"<%ed-code%>", (object)databaseRecords2.Rows[0]["ed"]);
+      }
       replacements.Add((object)"<%submission-date%>", (object)today.ToString("D"));
       replacements.Add((object)"<%updating-user%>", (object)userRecords.Rows[0]["displayName"]);
       replacements.Add((object)"<%ballot-site%>", (object)ConfigurationManager.AppSettings["BallotSite"]);
@@ -877,6 +887,16 @@ namespace Ballots
         case "mail_ballot_rejected":
           mailMessage.Subject = "Mail-In Ballot Rejected for " + ed;
           foreach (string emailAddress in ConfigurationManager.AppSettings["emailBallotRejected"].ToString().Split(','))
+          {
+            if (!string.IsNullOrEmpty(emailAddress))
+            {
+              mailMessage.To.Add(new MailAddress(emailAddress));
+            }
+          }
+          break;
+        case "master_extract_uploaded":
+          mailMessage.Subject = "Master Extract Uploaded";
+          foreach (string emailAddress in ConfigurationManager.AppSettings["EmailMasterExtractUploaded"].ToString().Split(','))
           {
             if (!string.IsNullOrEmpty(emailAddress))
             {
@@ -1005,6 +1025,11 @@ namespace Ballots
 
               // Use PutFile to upload
               session.PutFile(inputStream, remotePath + "/" + uploadFolder + "/" + fileName);
+
+              if (uploadType == "extract_master" && ConfigurationManager.AppSettings["SendMasterExtractUploadedEmail"].ToString().ToLower() == "true")
+              {
+                SendEmail(ed, this.Session["authUserID"].ToString(), "master_extract_uploaded");
+              }
             }
           }
         }
