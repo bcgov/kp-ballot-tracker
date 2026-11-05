@@ -324,11 +324,11 @@ namespace Ballots
             {
               if (tabID == 7 || tabID == 2)
               {
-                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" value=\"View Mail-in Ballot\"/><br>");
+                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" value=\"View VBM Ballot\"/><br>");
               }
               else
               {
-                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboard btn-mail-ballot\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View Mail-in Ballot\"/><br>");
+                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboard btn-mail-ballot\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View VBM Ballot\"/><br>");
               }
               stringBuilder.Append("<span class=\"qty-match-yes\" title=\"");
               stringBuilder.Append(row["mailBallotApproveDT"]);
@@ -341,11 +341,11 @@ namespace Ballots
             {
               if (tabID == 7 || tabID == 2)
               {
-                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View Mail-in Ballot\"/><br>");
+                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View VBM Ballot\"/><br>");
               }
               else
               {
-                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboard btn-mail-ballot\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View Mail-in Ballot\"/><br>");
+                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboard btn-mail-ballot\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View VBM Ballot\"/><br>");
               }
               stringBuilder.Append("<span class=\"qty-match-no\" title=\"");
               stringBuilder.Append(row["mailBallotRejectDT"]);
@@ -358,11 +358,11 @@ namespace Ballots
             {
               if (tabID == 7 || tabID == 2)
               {
-                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" value=\"View Mail-in Ballot\"/><br>");
+                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboardDisabled\" value=\"View VBM Ballot\"/><br>");
               }
               else
               {
-                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboard btn-mail-ballot\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View Mail-in Ballot\"/></td>");
+                stringBuilder.Append("<td><input type=\"button\" style='width:135px' class=\"btnDashboard btn-mail-ballot\" name=\"" + row["ed"] + ConfigurationManager.AppSettings["MailBallotFileName"] + "\" id=\"" + row["ed"] + "-mail-ballot\" value=\"View VBM Ballot\"/></td>");
               }
             }
           }
@@ -529,7 +529,7 @@ namespace Ballots
       }
       else if (column == "MAIL_BALLOT_UPLOAD" && ShowColumn(column))
       {
-        stringBuilder.Append("<th rowspan=\"2\">Mail-In Ballot<br/>Upload</th>");
+        stringBuilder.Append("<th rowspan=\"2\">VBM Ballot<br/>Upload</th>");
       }
       else if (column == "BALLOT_PROOFS" && ShowColumn(column))
       {
@@ -537,7 +537,7 @@ namespace Ballots
       }
       else if (column == "MAIL_BALLOT_PROOFS" && ShowColumn(column))
       {
-        stringBuilder.Append("<th>Mail-In Ballots</th>");
+        stringBuilder.Append("<th>VBM Ballots</th>");
       }
       else if (column == "HARD_COPY_PROOF_AVAILABLE" && ShowColumn(column))
       {
@@ -885,7 +885,7 @@ namespace Ballots
           }
           break;
         case "mail_ballot_rejected":
-          mailMessage.Subject = "Mail-In Ballot Rejected for " + ed;
+          mailMessage.Subject = "VBM Ballot Rejected for " + ed;
           foreach (string emailAddress in ConfigurationManager.AppSettings["emailBallotRejected"].ToString().Split(','))
           {
             if (!string.IsNullOrEmpty(emailAddress))

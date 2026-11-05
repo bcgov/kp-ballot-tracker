@@ -110,7 +110,7 @@
             <asp:Button ID="btnUploadToServer" runat="server" style="display:none;" OnClick="btnUploadToServer_Click" />
             &#160;&#160;
             <asp:FileUpload ID="MailInBallotFileUploadControl" runat="server" AllowMultiple="true" style="display:none;"   />
-            <asp:Button ID="MailInBallotCustomUpload" runat="server" class="audioProofUpload" Text="Batch Upload Mail-In Ballots" OnClientClick="triggerMailInBallotFileUpload(); return false;" />
+            <asp:Button ID="MailInBallotCustomUpload" runat="server" class="audioProofUpload" Text="Batch Upload VBM Ballots" OnClientClick="triggerMailInBallotFileUpload(); return false;" />
             <asp:Button ID="MailInBallotUploadToServer" runat="server" style="display:none;" OnClick="MailInBallotUploadToServer_Click" />
         </asp:Panel>
     </div>
@@ -171,8 +171,8 @@
         <iframe id="mail-ballot-iframe" width="1280px" height="700px" scrolling="no" frameborder="0"></iframe>
         <form method="dialog">
             <input type="hidden" id="mailBallotED" value="" />
-            <button id="approveBtnMailBallot" class="audioProofUpload" value="approve">Approve Mail-In Ballot</button>
-            <button id="rejectBtnMailBallot" class="audioProofUpload" value="reject">Mail-In Ballot Not Approved</button>
+            <button id="approveBtnMailBallot" class="audioProofUpload" value="approve">Approve VBM Ballot</button>
+            <button id="rejectBtnMailBallot" class="audioProofUpload" value="reject">VBM Ballot Not Approved</button>
             <button id="closeBtnMailBallot" class="audioProofUpload" value="close">Close</button>
         </form>
     </dialog>
