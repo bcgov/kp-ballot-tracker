@@ -146,6 +146,8 @@
     <Content Include="ballot-tracker.aspx" />
     <Content Include="ballot-tracking.js" />
     <Content Include="jquery.uploadifive.js" />
+    <Content Include="mail-template-vbm-ballots-uploaded.html" />
+    <Content Include="mail-template-ballot-proofs-uploaded.html" />
     <Content Include="mail-template-mail-in-rejected.html" />
     <Content Include="mail-template-extract-uploaded.html" />
     <Content Include="mail-template-rejected.html" />

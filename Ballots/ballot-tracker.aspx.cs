@@ -833,6 +833,12 @@ namespace Ballots
         case "master_extract_uploaded":
           mailDefinition.BodyFileName = "mail-template-extract-uploaded.html";
           break;
+        case "ballot_proofs_uploaded":
+          mailDefinition.BodyFileName = "mail-template-ballot-proofs-uploaded.html";
+          break;
+        case "vbm_ballots_uploaded":
+          mailDefinition.BodyFileName = "mail-template-vbm-ballots-uploaded.html";
+          break;
         default:
           mailDefinition.BodyFileName = "mail-template.html";
           break;
@@ -841,7 +847,7 @@ namespace Ballots
       mailDefinition.From = ConfigurationManager.AppSettings["emailFrom"];
       ListDictionary replacements = new ListDictionary();
       DateTime today = DateTime.Today;
-      if (emailType != "master_extract_uploaded")
+      if (emailType != "master_extract_uploaded" && emailType != "ballot_proofs_uploaded" && emailType != "vbm_ballots_uploaded")
       {
         replacements.Add((object)"<%ed-name%>", (object)databaseRecords2.Rows[0]["edName"]);
         replacements.Add((object)"<%ed-code%>", (object)databaseRecords2.Rows[0]["ed"]);
@@ -1031,6 +1037,14 @@ namespace Ballots
                 SendEmail(ed, this.Session["authUserID"].ToString(), "master_extract_uploaded");
               }
             }
+          }
+          if (uploadType == "proof" && ConfigurationManager.AppSettings["SendBallotProofsUploadedEmail"].ToString().ToLower() == "true")
+          {
+            SendEmail("", this.Session["authUserID"].ToString(), "ballot_proofs_uploaded");
+          }
+          if (uploadType == "mail" && ConfigurationManager.AppSettings["SendVBMBallotsUploadedEmail"].ToString().ToLower() == "true")
+          {
+            SendEmail("", this.Session["authUserID"].ToString(), "vbm_ballots_uploaded");
           }
         }
         Response.Redirect(Request.RawUrl);
