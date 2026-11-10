@@ -910,6 +910,26 @@ namespace Ballots
             }
           }
           break;
+        case "ballot_proofs_uploaded":
+          mailMessage.Subject = "Ballot Proofs Uploaded";
+          foreach (string emailAddress in ConfigurationManager.AppSettings["EmailBallotProofsUploaded"].ToString().Split(','))
+          {
+            if (!string.IsNullOrEmpty(emailAddress))
+            {
+              mailMessage.To.Add(new MailAddress(emailAddress));
+            }
+          }
+          break;
+        case "vbm_ballots_uploaded":
+          mailMessage.Subject = "VBM Ballots Uploaded";
+          foreach (string emailAddress in ConfigurationManager.AppSettings["EmailVBMBallotsUploaded"].ToString().Split(','))
+          {
+            if (!string.IsNullOrEmpty(emailAddress))
+            {
+              mailMessage.To.Add(new MailAddress(emailAddress));
+            }
+          }
+          break;
         default:
           break;
       }
