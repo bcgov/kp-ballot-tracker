@@ -891,7 +891,7 @@ namespace Ballots
           }
           break;
         case "mail_ballot_rejected":
-          mailMessage.Subject = "VBM Ballot Rejected for " + ed;
+          mailMessage.Subject = "Vote By Mail Ballot Rejected for " + ed;
           foreach (string emailAddress in ConfigurationManager.AppSettings["emailBallotRejected"].ToString().Split(','))
           {
             if (!string.IsNullOrEmpty(emailAddress))
@@ -921,7 +921,7 @@ namespace Ballots
           }
           break;
         case "vbm_ballots_uploaded":
-          mailMessage.Subject = "VBM Ballots Uploaded";
+          mailMessage.Subject = "Vote By Mail Ballots Uploaded";
           foreach (string emailAddress in ConfigurationManager.AppSettings["EmailVBMBallotsUploaded"].ToString().Split(','))
           {
             if (!string.IsNullOrEmpty(emailAddress))
