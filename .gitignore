@@ -9,3 +9,8 @@ Ballots/Web.Release.config
 .vs/
 Ballots/Dummy.Debug.config
 Ballots/Dummy.Release.config
+Install/set_db_env_var-dev.bat
+Install/set_db_env_var-prod.bat
+Install/set_db_env_var-test.bat
+PrivateKey/PrivateKeyFTP_ballots.prod.ppk
+PrivateKey/PrivateKeyFTPThorGuenther.ppk

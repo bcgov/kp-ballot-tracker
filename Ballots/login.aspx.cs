@@ -104,7 +104,7 @@ namespace Ballots
 
     private DataTable getDatabaseRecords(string SQLString)
     {
-      SqlConnection selectConnection = new SqlConnection(ConfigurationManager.AppSettings["BallotsConnectionString"]);
+      SqlConnection selectConnection = new SqlConnection(Environment.GetEnvironmentVariable("KP_BALLOTS_DB_CS", EnvironmentVariableTarget.Machine));
       SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(SQLString, selectConnection);
       DataTable dataTable = new DataTable();
       try

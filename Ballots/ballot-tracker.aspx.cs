@@ -33,6 +33,8 @@ namespace Ballots
     protected PlaceHolder currUser = new PlaceHolder();
     protected PlaceHolder currUserEDName = new PlaceHolder();
 
+    protected static string databaseConnectionString = Environment.GetEnvironmentVariable("KP_BALLOTS_DB_CS", EnvironmentVariableTarget.Machine);
+
     protected void Page_Load(object sender, EventArgs e)
     {
       BallotFileUploadControl.Attributes["onchange"] = "uploadBallotFiles(this)";
@@ -580,7 +582,7 @@ namespace Ballots
 
     private static DataTable getDatabaseRecords(string SQLString)
     {
-      SqlConnection selectConnection = new SqlConnection(ConfigurationManager.AppSettings["BallotsConnectionString"]);
+      SqlConnection selectConnection = new SqlConnection(databaseConnectionString);
       SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(SQLString, selectConnection);
       DataTable dataTable = new DataTable();
       try
@@ -749,7 +751,7 @@ namespace Ballots
 
     private static bool setDatabaseRecords(string SQLString)
     {
-      SqlConnection selectConnection = new SqlConnection(ConfigurationManager.AppSettings["BallotsConnectionString"]);
+      SqlConnection selectConnection = new SqlConnection(databaseConnectionString);
       SqlCommand sqlCommand = new SqlCommand(SQLString);
       SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(SQLString, selectConnection);
       try
@@ -901,7 +903,7 @@ namespace Ballots
           }
           break;
         case "master_extract_uploaded":
-          mailMessage.Subject = "Master Extract Uploaded";
+          mailMessage.Subject = "Extract Uploaded";
           foreach (string emailAddress in ConfigurationManager.AppSettings["EmailMasterExtractUploaded"].ToString().Split(','))
           {
             if (!string.IsNullOrEmpty(emailAddress))
@@ -964,7 +966,7 @@ namespace Ballots
 
     private static DataTable getDeoEmails(string ed)
     {
-      SqlConnection selectConnection = new SqlConnection(ConfigurationManager.AppSettings["BallotsConnectionString"]);
+      SqlConnection selectConnection = new SqlConnection(databaseConnectionString);
       SqlCommand cmd = new SqlCommand();
       SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
       DataTable dataTable = new DataTable();
