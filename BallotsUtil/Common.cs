@@ -30,7 +30,7 @@ namespace BallotsUtil
         string systemLogLevel = ConfigurationManager.AppSettings["LogLevel"].ToString();
         if ((systemLogLevel == "DEBUG" && (logLevel == "DEBUG" || logLevel == "ERROR")) || (logLevel == "ERROR" && (systemLogLevel == "ERROR" || systemLogLevel == "DEBUG")))
         {
-          selectConnection = new SqlConnection(ConfigurationManager.AppSettings["BallotsConnectionString"]);
+          selectConnection = new SqlConnection(Environment.GetEnvironmentVariable("KP_BALLOTS_DB_CS", EnvironmentVariableTarget.Machine));
           using (SqlCommand sqlCommand = selectConnection.CreateCommand())
           {
             sqlCommand.CommandText = @"INSERT INTO common_log (log_level, log_source, log_message, log_date) VALUES (@log_level, @log_source, @log_message, @log_date)";
