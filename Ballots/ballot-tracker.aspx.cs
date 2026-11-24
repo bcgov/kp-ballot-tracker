@@ -617,6 +617,10 @@ namespace Ballots
           Console.Write("Error writing to database");
           return false;
         }
+        
+        bool result = CopyBallotFile(ed);
+        //Common.LogDebug("ApproveProof", "CopyBallotFile result=" + result);
+        return result;
       }
 
       return true;
@@ -1149,6 +1153,31 @@ namespace Ballots
       DataTable databaseRecords = BallotTracker.getDatabaseRecords(sql);
       
       return databaseRecords.Rows.Count > 0 ? Convert.ToString(databaseRecords.Rows[0]["region"]) : "";
+    }
+
+    private static bool CopyBallotFile(string ed)
+    {
+      try
+      {
+        BallotTracker ballotTracker = new BallotTracker();
+        string destinationPath = ConfigurationManager.AppSettings["RemotePath"] + ConfigurationManager.AppSettings["ApprovedBallotFolder"] + @"/" + ed + ConfigurationManager.AppSettings["BallotFileName"];
+        string localPath = ConfigurationManager.AppSettings["LocalPath"] + @"\" + ConfigurationManager.AppSettings["TempFolder"] + @"\" + ballotTracker.Session["authUserID"].ToString();
+        byte[] fileBytes = File.ReadAllBytes(localPath + @"\" + ed + ConfigurationManager.AppSettings["BallotFileName"]);
+
+        using (Session session = new Session())
+        {
+          session.Open(ballotTracker.GetWinSCPSessionOptions());
+          using (MemoryStream stream = new MemoryStream(fileBytes))
+          {
+            session.PutFile(stream, destinationPath);
+          }
+        }
+        return true;
+      }
+      catch (Exception ex) {
+        Common.LogError("CopyBallotFile", ex.InnerException.Message);
+        return false;
+      }
     }
 
     protected void MailInBallotUploadToServer_Click(object sender, EventArgs e)
